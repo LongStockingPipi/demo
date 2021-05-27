@@ -1,0 +1,17 @@
+当@Node在类和具有特定标签的节点之间创建映射时，我们还需要在该类(对象)的单个实例和节点实例之间建立连接。
+这就是@Id发挥作用的地方。
+@Id将类的一个属性标记为对象的唯一标识符。这个唯一的标识符在理想情况下是唯一的业务键，或者换句话说，是一个自然键。@Id可以用于支持的简单类型的所有属性。
+然而，自然键很难找到。例如，人们的名字很少是独一无二的，会随着时间的推移而改变，甚至更糟，不是每个人都有姓和名。
+因此，我们支持两种不同的代理键。
+对于long或long类型的属性，@Id可以与@GeneratedValue一起使用。这将Neo4j内部id(它不是节点或关系上的属性，通常不可见)映射到属性，并允许SDN检索类的单个实例。
+@GeneratedValue提供了属性generatorClass。generatorClass可用于指定实现IdGenerator的类。IdGenerator是一个功能接口，它的generateId接受主标签和生成Id的实例。我们支持UUIDStringGenerator作为一种开箱即用的实现。
+您还可以通过generatorRef从应用程序上下文中在@GeneratedValue上指定一个Spring Bean。该bean还需要实现IdGenerator，但可以利用上下文中的一切，包括Neo4j客户机或模板来与数据库交互。
+
+
+
+
+
+
+@Relationship注释可以用于所有非简单类型的属性。它适用于用@Node注释的其他类型的属性或集合及其映射。
+type或value属性允许配置关系的类型，direction允许指定方向。SDN默认的方向是Relationship.Direction#OUTGOING。
+我们支持动态关系。动态关系表示为一个映射字符串，注释的 Map<String, AnnotatedDomainClass> or Map<Enum, AnnotatedDomainClass>;。在这种情况下，与其他域类的关系类型由map键给出，并且不能通过@Relationship配置。

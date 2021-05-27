@@ -1,0 +1,12 @@
+spring:
+  data:
+    neo4j:
+      uri: bolt://localhost:7687
+      username: neo4j
+      password: Ne04j_2021
+#  neo4j:
+#    authentication:
+#      username: neo4j
+#      password: Ne04j_2021
+#    uri: bolt://localhost:7687
+
